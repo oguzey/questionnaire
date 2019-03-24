@@ -1,0 +1,23 @@
+---
+
+- name: install nginx web-server
+  yum: name=nginx state=latest
+  tags: packages
+
+- name: configure nginx
+  copy: src=nginx.conf dest=/etc/nginx/conf.d/default.conf
+        owner=root group=root
+  notify:
+    - restart nginx
+    - check nginx is running
+  tags: configuration
+
+- name: configure default web-page
+  copy: src=index.html dest=/usr/share/nginx/html/index.html
+        owner=root group=root
+  notify:
+    - restart nginx
+    - check nginx is running
+  tags: configuration
+
+

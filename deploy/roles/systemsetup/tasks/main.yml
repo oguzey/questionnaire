@@ -1,0 +1,16 @@
+---
+
+- name: Install system packages
+  yum: name={{item}} state=installed
+  with_items:
+    - epel-release
+    - gcc
+    - tree         # Optional
+    - python36-pip
+    - python36-devel
+    - python36-virtualenv
+  tags: packages
+
+  # - name: install uWSGI and NGINX
+  # yum: name=uwsgi,uwsgi-plugin-python36u,nginx state=latest
+  # tags: packages
