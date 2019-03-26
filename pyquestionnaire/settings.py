@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'questionnaire',
+    'pyquestionnaire',
 ]
 
 MIDDLEWARE = [
@@ -50,7 +50,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'questionnaire.urls'
+ROOT_URLCONF = 'pyquestionnaire.urls'
 
 TEMPLATES = [
     {
@@ -68,7 +68,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'questionnaire.wsgi.application'
+WSGI_APPLICATION = 'pyquestionnaire.wsgi.application'
 
 
 # Database
