@@ -1,0 +1,15 @@
+---
+
+django: True
+django_migrate: True
+django_collectstatic: True
+django_commands: True
+
+web_app_name: pyquestionnaire
+version: master
+system_user: "{{ web_app_name }}"
+git_repo: https://github.com/oguzey/questionnaire
+
+bundle_dir: 'files'
+env_dir: 'files'
+env_file: "{{ env_dir }}/{{ web_app_name }}.env.{{ inventory }}"

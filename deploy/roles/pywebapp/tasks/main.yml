@@ -1,0 +1,46 @@
+---
+
+- name: create the python virtual environment for the web-app {{ web_app_name }}
+  command: python3.6 -m venv /opt/{{ web_app_name }}
+  args:
+    creates: /opt/{{ web_app_name }}/bin/activate
+
+- name: create system user for the web-app {{ web_app_name }}
+  user: name={{ system_user }} system=yes createhome=no
+
+- name: set virtual environment owner and group for the web-app {{ web_app_name }}
+  file: path=/opt/{{ web_app_name }} recurse=yes owner={{ system_user }} group={{ system_user }} state=directory
+
+- name: create log directory for the web-app {{ web_app_name }}
+  file: path=/var/log/{{ web_app_name }} owner={{ system_user }} group={{ system_user }} state=directory
+
+# packages
+
+- name: remove temporary directory for the web-app {{ web_app_name }}
+  file: path=/opt/{{ web_app_name }}/tmp state=absent
+
+- name: create temporary directory for the web-app {{ web_app_name }}
+  file: path=/opt/{{ web_app_name }}/tmp state=directory owner={{ system_user }} group={{ system_user }}
+
+- name: clone git repository for the web-app {{ web_app_name }}
+  git:
+    repo: "{{ git_repo }}"
+    dest: /opt/{{ web_app_name }}/tmp
+    version: "{{ version }}"
+    accept_hostkey: True
+  when: git_repo is defined
+
+- name: install cloned GIT repo and requirements for the web-app {{ web_app_name }}
+  become: True
+  become_user: "{{ system_user }}"
+  pip:
+    chdir: /opt/{{ web_app_name }}/tmp
+    virtualenv: /opt/{{ web_app_name }}
+    virtualenv_python: /opt/{{ web_app_name }}/bin/python
+    requirements: /opt/{{ web_app_name }}/tmp/deploy/roles/{{ role_name }}/files/requirements.txt
+    extra_args: '--no-cache-dir'
+    state: forcereinstall
+  when: git_repo is defined
+
+#- name: remove temporary directory for the web-app {{ web_app_name }}
+#  file: path=/opt/{{ web_app_name }}/tmp state=absent

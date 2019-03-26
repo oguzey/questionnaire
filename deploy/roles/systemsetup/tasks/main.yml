@@ -4,6 +4,8 @@
   yum: name={{item}} state=installed
   with_items:
     - epel-release
+    - git
+    - make
     - gcc
     - tree         # Optional
     - python36-pip
