@@ -1,0 +1,6 @@
+[Unit]
+Description=uWSGI instance to serve {{ web_app_name }}
+
+[Service]
+ExecStartPre=-/usr/bin/bash -c 'mkdir -p /run/uwsgi; chown {{ web_app_user }}:nginx /run/uwsgi'
+ExecStart=/usr/bin/bash -c 'cd {{ web_app_path }}; source ./bin/activate; uwsgi --ini myapp.ini'
