@@ -1,0 +1,66 @@
+#!/bin/bash
+#
+# uWSGI - this script starts and stops the uWSGI daemon
+#
+# chkconfig:   - 85 15
+# description:  uWSGI is an Python allication server \
+#               proxy server
+# processname: uwsgi
+# config:      {{ app_conf_path }}/uwsgi.ini
+# pidfile:     {{ app_path }}/uwsgi.pid
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+
+
+if [ ! -d "{{ app_base_path }}" ]; then 
+    echo "The app {{ app_base_path }} is not installed"
+    exit 5
+fi
+
+source {{ app_base_path }}/bin/activate
+
+# Check for missing binaries (stale symlinks should not happen)
+UWSGI_BIN="$(which uwsgi)"
+
+if [ -z "$UWSGI_BIN" ]; then 
+    echo "uWSGI is not installed"
+    exit 5
+fi
+
+
+start()
+{
+    echo "Starting uWSGI"
+    "$UWSGI_BIN" --ini {{ app_conf_path }}/uwsgi.ini &
+}
+
+stop()
+{
+    echo "Shutting down uWSGI"
+    killproc "$UWSGI_BIN"
+}
+
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    status)
+        echo "Checking for service uWSGI "
+        status $UWSGI_BIN
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|status|restart}"
+        exit 1
+        ;;
+esac
+exit 0

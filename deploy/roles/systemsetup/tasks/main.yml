@@ -1,6 +1,8 @@
 ---
 
 - name: Install system packages
+  become: yes
+  become_method: sudo
   yum: name={{item}} state=installed
   with_items:
     - epel-release
@@ -12,7 +14,3 @@
     - python36-devel
     - python36-virtualenv
   tags: packages
-
-  # - name: install uWSGI and NGINX
-  # yum: name=uwsgi,uwsgi-plugin-python36u,nginx state=latest
-  # tags: packages

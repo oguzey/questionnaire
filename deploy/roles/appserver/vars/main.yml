@@ -1,0 +1,24 @@
+---
+
+app_name: pyquestionnaire
+app_base_path: /opt/{{ app_name }}
+app_path: "{{ app_base_path }}/app"
+app_conf_path: "{{ app_path }}/conf"
+app_log_path: "/var/log/{{ app_name }}"
+app_project_path: "{{ app_path }}/gitproject"
+app_version: master
+app_user: "{{ app_name }}"
+app_git_repo: https://github.com/oguzey/questionnaire
+
+
+#######################################################
+# UNUSED
+#######################################################
+django: True
+django_migrate: True
+django_collectstatic: True
+django_commands: True
+
+bundle_dir: 'files'
+env_dir: 'files'
+env_file: "{{ env_dir }}/{{ app_name }}.env.{{ inventory }}"

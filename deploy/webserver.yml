@@ -1,9 +1,7 @@
 ---
-
 - hosts: web-server
   become: yes
   become_method: sudo
   roles:
     - systemsetup
     - webserver
-    - pywebapp

@@ -1,0 +1,18 @@
+---
+
+- name: create the python virtual environment for the {{ app_name }}
+  command: python3.6 -m venv {{ app_base_path }}
+  args:
+    creates: "{{ app_base_path }}/bin/activate"
+
+- name: create system user for the {{ app_name }}
+  user: name={{ app_user }} system=yes createhome=no
+
+- name: set virtual environment owner and group for the web-app {{ app_name }}
+  file: path={{ app_base_path }} recurse=yes owner={{ app_user }} group={{ app_user }} state=directory
+
+- name: remove log directory {{ app_log_path }} for the {{ app_name }}
+  file: path={{ app_log_path }} state=absent
+
+- name: create log directory {{ app_log_path }} for the {{ app_name }}
+  file: path={{ app_log_path }} owner={{ app_user }} group={{ app_user }} state=directory

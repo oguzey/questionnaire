@@ -1,0 +1,40 @@
+---
+
+- name: remove {{ app_path }} app directory
+  file: path={{ app_path }} state=absent
+
+- name: create {{ app_path }} app directory
+  file: path={{ app_path }} state=directory owner={{ app_user }} group={{ app_user }}
+
+- name: create {{ app_conf_path }} conf directory
+  file: path={{ app_conf_path }} state=directory owner={{ app_user }} group={{ app_user }}
+
+- name: create {{ app_project_path }} project directory
+  file: path={{ app_project_path }} state=directory owner={{ app_user }} group={{ app_user }}
+
+- name: clone git repository for the {{ app_name }}
+  git:
+    repo: "{{ app_git_repo }}"
+    dest: "{{ app_project_path }}"
+    version: "{{ app_version }}"
+    accept_hostkey: True
+
+- name: install cloned GIT repo and requirements for the {{ app_name }}
+  become: True
+  become_user: "{{ app_user }}"
+  pip:
+    chdir: "{{ app_project_path }}"
+    virtualenv: "{{ app_base_path }}"
+    virtualenv_python: "{{ app_base_path }}/bin/python"
+    requirements: "{{ app_project_path }}/deploy/roles/{{ role_name }}/files/requirements.txt"
+    extra_args: "--no-cache-dir"
+    state: forcereinstall
+
+- name: install the {{ app_name }}
+  become: True
+  become_user: "{{ app_user }}"
+  pip:
+      name: "{{ app_project_path }}"
+      virtualenv: "{{ app_base_path }}"
+      virtualenv_python: "{{ app_base_path }}/bin/python"
+      state: forcereinstall

@@ -1,0 +1,5 @@
+---
+
+- include: configure_env.yml
+- include: configure_app.yml
+- include: configure_uwsgi.yml

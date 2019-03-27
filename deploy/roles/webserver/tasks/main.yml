@@ -9,15 +9,13 @@
         owner=root group=root
   notify:
     - restart nginx
-    - check nginx is running
-  tags: configuration
+  tags: deploy
 
-- name: configure default web-page
-  copy: src=index.html dest=/usr/share/nginx/html/index.html
-        owner=root group=root
-  notify:
-    - restart nginx
-    - check nginx is running
-  tags: configuration
+# - name: configure default web-page
+#   copy: src=index.html dest=/usr/share/nginx/html/index.html
+#         owner=root group=root
+#   notify:
+#     - restart nginx
+#   tags: configuration
 
 
