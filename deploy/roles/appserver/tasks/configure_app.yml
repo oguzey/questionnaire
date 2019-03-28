@@ -16,6 +16,10 @@
   file: path={{ app_templates_path }} state=directory owner={{ app_user }} group={{ app_user }}
   tags: deploy
 
+- name: create {{ app_db_path }} directory
+  file: path={{ app_db_path }} state=directory owner={{ app_user }} group={{ app_user }}
+  tags: deploy  
+
 - name: create {{ app_project_path }} project directory
   file: path={{ app_project_path }} state=directory owner={{ app_user }} group={{ app_user }}
   tags: deploy
@@ -60,3 +64,11 @@
     dest: "{{ app_templates_path }}/index.html"
     remote_src: yes
   tags: deploy
+
+- name: initialize DB for the {{ app_name }}
+- django_manage:
+    command: migrate
+    app_path: "{{ app_project_path }}/{{ app_name }}"
+    #settings: "{{ settings_app_name }}"myapp.settings
+    #pythonpath: "{{ settings_dir }}"
+    virtualenv: "{{ app_base_path }}"
