@@ -13,5 +13,5 @@
     - python36-pip
     - python36-devel
     - python36-virtualenv
-    - sqlite3
+    - sqlite
   tags: packages

@@ -65,10 +65,15 @@
     remote_src: yes
   tags: deploy
 
-- name: initialize DB for the {{ app_name }}
-- django_manage:
+- name: django initialize DB for the {{ app_name }}
+  django_manage:
     command: migrate
-    app_path: "{{ app_project_path }}/{{ app_name }}"
-    #settings: "{{ settings_app_name }}"myapp.settings
-    #pythonpath: "{{ settings_dir }}"
+    app_path: "{{ app_project_path }}"
     virtualenv: "{{ app_base_path }}"
+  tags: deploy
+
+- name: create user table in the DB
+  shell: "sqlite3 {{ app_db_path }}/{{ app_db_filename }} < {{ app_project_path }}/deploy/roles/{{ role_name }}/files/db_init.sql"
+  tags: deploy
+
+
