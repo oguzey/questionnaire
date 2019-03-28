@@ -13,6 +13,8 @@
 
 - name: remove log directory {{ app_log_path }} for the {{ app_name }}
   file: path={{ app_log_path }} state=absent
+  tags: deploy
 
 - name: create log directory {{ app_log_path }} for the {{ app_name }}
   file: path={{ app_log_path }} owner={{ app_user }} group={{ app_user }} state=directory
+  tags: deploy

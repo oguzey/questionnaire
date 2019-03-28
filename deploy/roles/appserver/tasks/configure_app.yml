@@ -2,22 +2,33 @@
 
 - name: remove {{ app_path }} app directory
   file: path={{ app_path }} state=absent
+  tags: deploy
 
 - name: create {{ app_path }} app directory
   file: path={{ app_path }} state=directory owner={{ app_user }} group={{ app_user }}
+  tags: deploy
 
 - name: create {{ app_conf_path }} conf directory
   file: path={{ app_conf_path }} state=directory owner={{ app_user }} group={{ app_user }}
+  tags: deploy
+
+- name: create {{ app_templates_path }} directory
+  file: path={{ app_templates_path }} state=directory owner={{ app_user }} group={{ app_user }}
+  tags: deploy
 
 - name: create {{ app_project_path }} project directory
   file: path={{ app_project_path }} state=directory owner={{ app_user }} group={{ app_user }}
+  tags: deploy
 
 - name: clone git repository for the {{ app_name }}
+  become: True
+  become_user: "{{ app_user }}"
   git:
     repo: "{{ app_git_repo }}"
     dest: "{{ app_project_path }}"
     version: "{{ app_version }}"
     accept_hostkey: True
+  tags: deploy
 
 - name: install cloned GIT repo and requirements for the {{ app_name }}
   become: True
@@ -29,6 +40,7 @@
     requirements: "{{ app_project_path }}/deploy/roles/{{ role_name }}/files/requirements.txt"
     extra_args: "--no-cache-dir"
     state: forcereinstall
+  tags: deploy
 
 - name: install the {{ app_name }}
   become: True
@@ -38,8 +50,13 @@
       virtualenv: "{{ app_base_path }}"
       virtualenv_python: "{{ app_base_path }}/bin/python"
       state: forcereinstall
+  tags: deploy
 
 - name: install the {{ app_name }} templates
   become: True
   become_user: "{{ app_user }}"
-  copy: src={{ app_project_path }}/{{ app_name }} dest={{ app_path }}
+  copy:
+    src: "{{ app_project_path }}/{{ app_name }}/templates/index.html"
+    dest: "{{ app_templates_path }}/index.html"
+    remote_src: yes
+  tags: deploy
