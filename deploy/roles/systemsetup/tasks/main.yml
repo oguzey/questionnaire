@@ -15,3 +15,70 @@
     - python36-virtualenv
     - sqlite
   tags: packages
+
+
+# UFW firewall configuration
+
+- name: Install UFW firewall
+  yum:
+    name: ufw
+    enablerepo: epel
+    state: installed
+  tags: firewall
+
+- name: Reject all incoming traffic
+  ufw:
+    policy: reject
+    direction: incoming
+    proto: any
+  tags: firewall
+
+- name: Set logging
+  ufw:
+    logging: on
+  tags: firewall
+
+- name: Allow ssh traffic
+  ufw:
+    rule: allow
+    port: ssh
+    proto: tcp
+  tags: firewall
+
+# ufw supports connection rate limiting, which is useful for protecting
+# against brute-force login attacks. ufw will deny connections if an IP
+# address has attempted to initiate 6 or more connections in the last
+# 30 seconds. See  http://www.debian-administration.org/articles/187
+# for details. Typical usage is:
+- name: Limit ssh traffic
+  ufw:
+    rule: limit
+    port: ssh
+    proto: tcp
+  tags: firewall
+
+- name: Allow all access to tcp port 80 (HTTP)
+  ufw:
+    rule: allow
+    port: 80
+    proto: tcp
+  tags: firewall
+
+- name: Allow all access to tcp port 443 (HTTPS)
+  ufw:
+    rule: allow
+    port: 443
+    proto: tcp
+  tags: firewall
+
+- name: Allow all access to tcp port 8888 (nginx and uWSGI app)
+  ufw:
+    rule: allow
+    port: 8888
+    proto: tcp
+  tags: firewall
+
+- name: Enable UFW
+  ufw:
+    state: enabled
+  tags: firewall
