@@ -4,4 +4,5 @@ from pyquestionnaire.views import *
 
 urlpatterns = [
     path('', home),
+    path('data/', handle_form_data),
 ]
