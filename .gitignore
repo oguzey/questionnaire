@@ -1,0 +1,3 @@
+*.sublime-workspace
+pyquestionnaire/__pycache__/
+ssl_generated_data/
