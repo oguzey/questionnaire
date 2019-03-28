@@ -55,7 +55,7 @@ ROOT_URLCONF = 'pyquestionnaire.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ '/opt/pyquestionnaire/app/templates' ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

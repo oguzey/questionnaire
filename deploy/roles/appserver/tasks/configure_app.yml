@@ -38,3 +38,8 @@
       virtualenv: "{{ app_base_path }}"
       virtualenv_python: "{{ app_base_path }}/bin/python"
       state: forcereinstall
+
+- name: install the {{ app_name }} templates
+  become: True
+  become_user: "{{ app_user }}"
+  copy: src={{ app_project_path }}/{{ app_name }} dest={{ app_path }}

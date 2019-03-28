@@ -33,7 +33,7 @@ fi
 start()
 {
     echo "Starting uWSGI"
-    "$UWSGI_BIN" --ini {{ app_conf_path }}/uwsgi.ini &
+    "$UWSGI_BIN" --ini {{ app_conf_path }}/uwsgi.ini
 }
 
 stop()
@@ -52,6 +52,8 @@ case "$1" in
         ;;
     restart)
         stop
+        # need to wait until all system ports will be closed
+        sleep 2
         start
         ;;
     status)
