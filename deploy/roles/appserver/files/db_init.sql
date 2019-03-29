@@ -1,8 +1,8 @@
 BEGIN;
-CREATE TABLE "user_data" (
-    "id" serial NOT NULL PRIMARY KEY,
-    "choice_text" varchar(200) NOT NULL,
-    "votes" integer NOT NULL
+CREATE TABLE IF NOT EXISTS "user_data" (
+    "name" TEXT NOT NULL UNIQUE,
+    "color" TEXT NOT NULL,
+    "animals" TEXT NOT NULL
 );
 
 COMMIT;

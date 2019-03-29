@@ -5,36 +5,64 @@
     <meta charset="utf-8" />
 </head>
 
+<style>
+    .outer {
+        margin: 0 auto;
+        width: 18%;
+        padding: 1em;
+        border: 1px solid #CCC;
+        border-radius: 1em; 
+    }
+
+    .label {
+        text-align: right;
+        margin-top: 1em;
+    }
+
+    input {
+        width: 150px
+    }
+    select {
+        width: 152px;
+        padding: 2px;
+    }
+
+    .button {
+        padding: 1em;
+        text-align: center;
+    }
+</style> 
+
 <body>
-
-<div id="block-body" style="margin-top: 10%">
-
-    <div id="title" align="center" >Name</div>
-    <br />
-<div class="outer" style="margin:auto; padding: 20px; height:200px; width: 330px; border:1px solid black">
-    
+    <div id="block-body" style="margin-top: 10%">
+        <div id="title" align="center" >Questionnaire</div>
+        <br />
+        <div class="outer">
+       
         <form action="/data/" method="post">
             {% csrf_token %}
-            <br />
-            <label for="name">Name</label>
-            <input type="text" id="Name" name="Name"></input>
-            <br /><br />
-            <label for="color">Favorite Color</label>
-            <input type="text" id="Color" name="Color"></input>
-            <br /><br />
-            <label for="Animal">Cats or Dogs</label>
-            <select name="Animal" style="width: 150px" required>
-                <option>Cats</option>
-                <option>Dogs</option>
-            </select>
-            <br />
-            <div class="button">
-              <button type="submit">Send</button>
-            </div>
-    </form>
-    
-</div>
 
+            <div class=label>
+                <label for="name">Name</label>
+                <input type="text" id="Name" name="Name"></input>
+            </div>
+            
+            <div class=label>
+                <label for="color">Favorite Color</label>
+                <input type="text" id="Color" name="Color"></input>
+             </div>
+            <div class=label>
+                <label for="Animals">Cats or Dogs</label>
+                <select name="Animals" required>
+                    <option>Cats</option>
+                    <option>Dogs</option>
+                </select>
+            </div>
+            <div class="button">
+                <button type="submit">Send</button>
+            </div>
+        </form>
+    </div>
 </body>
 
 </html>
