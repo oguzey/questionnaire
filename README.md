@@ -4,9 +4,9 @@ The project is a simple web-page that contains a questionnaire form. A user can 
 
 ## Technologies
 1. Python 3.6, Django framework 2.1.7 (for development the site);
-1. uWSGI tool (for running the site);
-1. NGINX web-server (as additional layer for handling user requests);
-1. Ansible 2.1.1.0 (for deployment the site on a target machine).
+1. uWSGI tool 2.0.18 (for running the site);
+1. NGINX web-server 1.14.1 (as additional layer for handling user requests);
+1. Ansible 2.6.5 (for deployment the site on a target machine).
 
 
 ## Project Structure
