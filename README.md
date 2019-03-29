@@ -11,14 +11,14 @@ The project is a simple web-page that contains a questionnaire form. A user can 
 
 ## Project Structure
 1. The source code of the site is located in the [pyquestionnaire](./pyquestionnaire) directory. Also, there are [manage.py](./manage.py) for debugging the site and [setup.py](./setup.py) for installation the python code as a python library on the target machine.
-1. All files needed for deployment are located in the [deploy](./deploy) directory. There is a bash script [deploy.sh](./deploy.sh) to simplifying the deployment process.
-1. The script [generate_ssl_data.sh](./generate_ssl_data.sh) is responsible for generating an SSL certificate, an SSL private key, and a Diffie-Hellman parameter which will be used by NGINX web-server to allow establishing HTTPS connection with clients.
+1. All files needed for deployment are located in the [deploy](./deploy) directory. There is a bash script [deploy.sh](./deploy.sh) to simplify the deployment process.
+1. The script [generate_ssl_data.sh](./generate_ssl_data.sh) is responsible for generating an SSL certificate, an SSL private key, and a Diffie-Hellman parameter which will be used by NGINX web-server to allow HTTPS connection establishing with clients.
 
 ## Deployment Details
-The ansible tool (ansible-playbook) is used to deploy the site on the target machine. The deployment process starts with running the main playbook file [deploy/main.yml](./deploy/main.yml). Then the different roles are run for do different deployment tasks.
+The ansible tool (ansible-playbook) is used to deploy the site on the target machine. The deployment process starts with running the main playbook file [deploy/main.yml](./deploy/main.yml). Then the different roles are run for doing different deployment tasks.
 1. [systemsetup](./deploy/roles/systemsetup) role is responsible for installation packages and configuring a firewall;
 1. [webserver](./deploy/roles/webserver) role installs and configures the NGINX web-server;
-1. [appserver](./deploy/roles/appserver) role is responsible for creating an environment for the site. It creates a python virtual environment, installs all dependencies, installs uWSGI tool and starts it.
+1. [appserver](./deploy/roles/appserver) role is responsible for creating an environment for the site. It creates a python virtual environment, installs all dependencies, uWSGI tool and starts it.
 
 Also, there is an inventory file [hosts.ini](./deploy/inventories/hosts.ini) which contains a configuration for each target host where the site will be deployed. Moreover, by adding several lines with hosts data to this inventory file, it is easy to deploy the site on several machines.
 
@@ -33,7 +33,7 @@ Currently only operating systems with `yum` package manager. It is tested only i
 
 ## How to deploy on your machine
 1. Write data (IP-address, user, key) of your host(s) into [hosts.ini](./deploy/inventories/hosts.ini) inventory file;
-2. Run the script [deploy.sh](./deploy.sh) from the project directory
+2. Run the script [deploy.sh](./deploy.sh) from the project directory.
 
 ## Example of Deployed Site
 There is an example of [the site](https://35.183.98.26/) deployed on an AWS virtual machine.
