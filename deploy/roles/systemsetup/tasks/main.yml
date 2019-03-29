@@ -34,8 +34,7 @@
   tags: firewall
 
 - name: Set logging
-  ufw:
-    logging: on
+  ufw: logging=on
   tags: firewall
 
 - name: Allow ssh traffic

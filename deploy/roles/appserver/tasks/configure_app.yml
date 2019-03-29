@@ -76,4 +76,9 @@
   shell: "sqlite3 {{ app_db_path }}/{{ app_db_filename }} < {{ app_project_path }}/deploy/roles/{{ role_name }}/files/db_init.sql"
   tags: deploy
 
-
+- name: change file DB permission
+  file:
+    path: "{{ app_db_path }}/{{ app_db_filename }}"
+    state: file
+    mode: "u=rw,g=rw,o=rw"
+  tags: deploy

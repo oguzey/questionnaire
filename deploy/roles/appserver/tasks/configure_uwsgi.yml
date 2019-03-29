@@ -3,12 +3,16 @@
 - name: create uWSGI configuration for the web-app {{ app_name }}
   template: src=roles/{{ role_name }}/files/uwsgi.ini dest={{ app_conf_path }}/uwsgi.ini
             owner={{ app_user }} group={{ app_user }}
+  notify:
+    - restart uWSGI
   tags: deploy
 
 - name: create uWSGI service file for the {{ app_name }}
   become: True
   become_user: root
   template: src=roles/{{ role_name }}/files/uwsgi.service dest=/etc/init.d/uwsgi owner=root group=root
+  notify:
+    - restart uWSGI
   tags: deploy
 
 - name: make executable uWSGI service file for the {{ app_name }}
