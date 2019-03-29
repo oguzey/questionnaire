@@ -39,7 +39,7 @@ class UserData(object):
             con.rollback()
             db_error = str(e)
             db_error_lower = db_error.lower()
-            if db_error_lower.find("unique") == -1:
+            if db_error_lower.find("unique") != -1:
                 return "Could not add data. Data from user '{}' have been already received".format(self.name.capitalize())
             else:
                 return "DB error: {}".format(db_error)
