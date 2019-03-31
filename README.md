@@ -34,7 +34,7 @@ To enable the verbose mode run the script with `-vvv`:
 $ ./deploy.sh -vvv
 ```
 
-Currently only operating systems with `yum` package manager. It is tested only in Amazon Linux OS.
+Currently, only operating systems with `yum` package manager are supported. The deployment process was tested only in Amazon Linux OS.
 
 ## How to deploy on your machine
 It needs to do the following items to deploy the project on your machine:
