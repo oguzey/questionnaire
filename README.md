@@ -11,7 +11,7 @@ The project is a simple web-page that contains a questionnaire form. A user can 
 
 ## Project Structure
 1. The source code of the site is located in the [pyquestionnaire](./pyquestionnaire) directory. Also, there are [manage.py](./manage.py) for debugging the site and [setup.py](./setup.py) for installation the python code as a python library on the target machine.
-1. All files needed for deployment are located in the [deploy](./deploy) directory. There is a bash script [deploy.sh](./deploy.sh) to simplify the deployment process.
+1. All files needed for deployment are located in the [deploy](./deploy) directory. In addition, there is a bash script [deploy.sh](./deploy.sh) to simplify the deployment process.
 1. The script [generate_ssl_data.sh](./generate_ssl_data.sh) is responsible for generating an SSL certificate, an SSL private key, and a Diffie-Hellman parameter which will be used by NGINX web-server to allow HTTPS connection establishing with clients.
 
 ## Deployment Details
@@ -48,5 +48,7 @@ The site is running on Amazon Linux OS:
 ```
 Amazon Linux AMI 2018.03.0 (HVM), SSD Volume Type - ami-07423fb63ea0a0930
 
-The Amazon Linux AMI is an EBS-backed, AWS-supported image. The default image includes AWS command line tools, Python, Ruby, Perl, and Java. The repositories include Docker, PHP, MySQL, PostgreSQL, and other packages.
+The Amazon Linux AMI is an EBS-backed, AWS-supported image. The default image includes AWS command
+line tools, Python, Ruby, Perl, and Java. The repositories include Docker, PHP, MySQL, PostgreSQL,
+and other packages.
 ````
